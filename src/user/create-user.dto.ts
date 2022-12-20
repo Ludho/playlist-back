@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {IsString } from 'class-validator';
+import {IsNumber, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -8,5 +8,7 @@ export class CreateUserDto {
   name: string;
   @IsString()
   password: string;
+  @IsNumber()
+  avatarID: number;
 }
  

@@ -13,6 +13,9 @@ class User {
  
   @Column()
   public password: string;
+
+  @Column()
+  public avatarID: number;
 }
  
 export default User;

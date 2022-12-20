@@ -3,8 +3,8 @@ import { Response } from 'express';
 import { AuthentificationService } from './authentification.service';
 import RegisterDto from './register.dto';
 import RequestWithUser from './requestWithUser.interface';
-import { LocalAuthenticationGuard } from './localAuthentication.guard';
-import JwtAuthenticationGuard from './jwt-authentication.guard';
+import { LocalAuthentificationGuard } from './localAuthentification.guard';
+import JwtAuthentificationGuard from './jwt-authentification.guard';
 
 @Controller('authentification')
 export class AuthentificationController {
@@ -18,24 +18,25 @@ export class AuthentificationController {
   }
 
   @HttpCode(200)
-  @UseGuards(LocalAuthenticationGuard)
+  @UseGuards(LocalAuthentificationGuard)
   @Post('log-in')
   async logIn(@Req() request: RequestWithUser, @Res() response: Response) {
     const {user} = request;
     const cookie = this.authentificationService.getCookieWithJwtToken(user.id);
     response.setHeader('Set-Cookie', cookie);
+    console.log(cookie);
     user.password = undefined;
     return response.send(user);
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtAuthentificationGuard)
   @Post('log-out')
   async logOut(@Res() response: Response) {
     response.setHeader('Set-Cookie', this.authentificationService.getCookieForLogOut());
     return response.sendStatus(200);
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtAuthentificationGuard)
   @Get()
   authenticate(@Req() request: RequestWithUser) {
     const user = request.user;
