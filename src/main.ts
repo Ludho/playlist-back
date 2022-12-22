@@ -10,7 +10,6 @@ async function bootstrap() {
     origin: process.env.APP_URL,
     credentials:true
   });
-  console.log(process.env.APP_URL)
   await app.listen(3030);
 }
 bootstrap();

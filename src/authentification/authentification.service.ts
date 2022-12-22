@@ -52,6 +52,24 @@ export class AuthentificationService {
     }
   }
 
+  public async putAuthenticatedUser(userData:any) {
+    try {
+      const user = await this.userService.update(userData);
+      return user;
+    } catch (error) {
+      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  public async deleteAuthenticatedUser(idUser:number) {
+    try {
+      const user = await this.userService.delete(idUser);
+      return user;
+    } catch (error) {
+      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+    }
+  }
+
   private async verifyPassword(plainTextPassword: string, hashedPassword: string) {
     const isPasswordMatching = await bcrypt.compare(
       plainTextPassword,

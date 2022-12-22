@@ -1,4 +1,4 @@
-import { Body, Req, Controller, HttpCode, Post, UseGuards, Res, Get } from '@nestjs/common';
+import { Body, Req, Controller, HttpCode, Post, UseGuards, Res, Get, Put, Delete } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthentificationService } from './authentification.service';
 import RegisterDto from './register.dto';
@@ -17,6 +17,18 @@ export class AuthentificationController {
     return this.authentificationService.register(registrationData);
   }
 
+  @UseGuards(JwtAuthentificationGuard)
+  @Put('/')
+  async update(@Body() userData: any,@Req() request: RequestWithUser) {
+    userData={...userData,id: request.user.id}
+    return this.authentificationService.putAuthenticatedUser(userData);
+  }
+  @UseGuards(JwtAuthentificationGuard)
+  @Delete('/')
+  async delete(@Req() request: RequestWithUser) {
+    return this.authentificationService.deleteAuthenticatedUser(request.user.id);
+  }
+
   @HttpCode(200)
   @UseGuards(LocalAuthentificationGuard)
   @Post('log-in')
@@ -24,7 +36,6 @@ export class AuthentificationController {
     const {user} = request;
     const cookie = this.authentificationService.getCookieWithJwtToken(user.id);
     response.setHeader('Set-Cookie', cookie);
-    console.log(cookie);
     user.password = undefined;
     return response.send(user);
   }
