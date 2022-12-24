@@ -1,10 +1,10 @@
 import { Body, Req, Controller, HttpCode, Post, UseGuards, Res, Get, Put, Delete } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthentificationService } from './authentification.service';
-import RegisterDto from './register.dto';
+import RegisterDto from './dto/register.dto';
 import RequestWithUser from './requestWithUser.interface';
-import { LocalAuthentificationGuard } from './localAuthentification.guard';
-import JwtAuthentificationGuard from './jwt-authentification.guard';
+import { LocalAuthentificationGuard } from './local/localAuthentification.guard';
+import JwtAuthentificationGuard from './jwt/jwt-authentification.guard';
 
 @Controller('authentification')
 export class AuthentificationController {
