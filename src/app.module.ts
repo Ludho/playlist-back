@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthentificationModule } from './authentification/authentification.module';
 import { UsersModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { VideosModule } from './videos/videos.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-    })
+    }),
+    VideosModule
   ],
   controllers: [],
   providers: [],
