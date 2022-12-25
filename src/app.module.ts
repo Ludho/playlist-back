@@ -4,6 +4,7 @@ import { AuthentificationModule } from './authentification/authentification.modu
 import { UsersModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { VideosModule } from './videos/videos.module';
+import { YoutubeService } from './youtube/youtube.service';
 
 @Module({
   imports: [
@@ -26,6 +27,6 @@ import { VideosModule } from './videos/videos.module';
     VideosModule
   ],
   controllers: [],
-  providers: [],
+  providers: [YoutubeService],
 })
 export class AppModule { }
