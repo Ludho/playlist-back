@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Video } from 'src/videos/entities/video.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
  
 @Entity()
 class User {
@@ -16,6 +17,9 @@ class User {
 
   @Column()
   public avatarID: number;
+
+  @OneToMany( () => Video, video => video.user)
+  videos: Video[];
 }
  
 export default User;

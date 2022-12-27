@@ -16,14 +16,12 @@ export class CreateVideoDto {
     title:string;
 
     @IsString()
-    thumbnails:string;
+    thumbnail:string;
 
     @IsString()
     description:string;
 
     @IsNumber()
-    duration:string;
+    duration:number;
 
-    @IsString()
-    viewCount:number;
 }

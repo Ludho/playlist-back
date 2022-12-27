@@ -17,6 +17,7 @@ import { YoutubeService } from './youtube/youtube.service';
       database: 'yourtube',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+      charset: 'utf8mb4'
     }),
     AuthentificationModule,
     UsersModule,
