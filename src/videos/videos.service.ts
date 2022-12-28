@@ -52,19 +52,33 @@ export class VideosService {
       },
     });
     if (video) {
+      video.user = undefined;
       return video;
+    }else{
+      return null
     }
-    throw new HttpException(
-      'Video with this id does not exist or User don`t posses this video',
-      HttpStatus.NOT_FOUND,
-    );
   }
 
   update(id: number, updateVideo: any) {
     return `This action updates a #${id} video`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} video`;
+  async remove(id: number, userId:number) {
+    const video = await this.videosRepository.findOne({
+      relations: {
+        user: true,
+      },
+      where: {
+        id: id,
+        user:{id:userId}
+      },
+    });
+    if (video) {
+      await this.videosRepository.delete(video);
+      video.user = undefined;
+      return video;
+    }else{
+      return null
+    }
   }
 }

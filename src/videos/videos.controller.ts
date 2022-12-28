@@ -44,7 +44,7 @@ export class VideosController {
 
   @UseGuards(JwtAuthentificationGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.videosService.remove(+id);
+  remove(@Req() request: RequestWithUser, @Param('id') id: string) {
+    return this.videosService.remove(+id, request.user.id);
   }
 }
